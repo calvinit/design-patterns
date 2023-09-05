@@ -3,36 +3,38 @@ package factory
 import "fmt"
 
 type ISimpleReader interface {
-	read(path string) string
+	Read(path string) string
 }
 
-type XMLReader struct{}
-type JSONReader struct{}
-type YAMLReader struct{}
+type XMLSimpleReader struct{}
+type JSONSimpleReader struct{}
+type YAMLSimpleReader struct{}
 
-func (r *XMLReader) read(path string) string {
+func (r *XMLSimpleReader) Read(path string) string {
 	return "simple-xml:" + path
 }
 
-func (r *JSONReader) read(path string) string {
+func (r *JSONSimpleReader) Read(path string) string {
 	return "simple-json:" + path
 }
 
-func (r *YAMLReader) read(path string) string {
+func (r *YAMLSimpleReader) Read(path string) string {
 	return "simple-yaml:" + path
 }
 
+// ============================================================
+
 type SimpleFactory struct{}
 
-func (f SimpleFactory) createReader(typ int) (ISimpleReader, error) {
+func (f *SimpleFactory) NewSimpleReader(typ int) (ISimpleReader, error) {
 	var reader ISimpleReader
 	switch typ {
 	case 1:
-		reader = &XMLReader{}
+		reader = &XMLSimpleReader{}
 	case 2:
-		reader = &JSONReader{}
+		reader = &JSONSimpleReader{}
 	case 3:
-		reader = &YAMLReader{}
+		reader = &YAMLSimpleReader{}
 	default:
 		return nil, fmt.Errorf("unknown simple reader type: %d", typ)
 	}

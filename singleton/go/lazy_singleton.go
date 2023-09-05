@@ -6,11 +6,11 @@ import (
 )
 
 type LazySingleton struct {
-	id *atomic.Int64
+	ID *atomic.Int64
 }
 
-func (l *LazySingleton) getID() (next int64) {
-	return l.id.Add(1)
+func (l *LazySingleton) GetID() (next int64) {
+	return l.ID.Add(1)
 }
 
 var (
@@ -23,7 +23,7 @@ func NewLazySingleton() *LazySingleton {
 	lazyOnce.Do(func() {
 		println("once.do......")
 		lazy = &LazySingleton{
-			id: new(atomic.Int64),
+			ID: new(atomic.Int64),
 		}
 	})
 	return lazy
