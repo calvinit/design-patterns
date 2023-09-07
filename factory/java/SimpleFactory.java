@@ -26,7 +26,7 @@ class YAMLSimpleReader implements ISimpleReader {
 // ============================================================
 
 /**
- * 创建型 - 简单工厂
+ * 创建型 - 简单工厂（也叫静态工厂方法）
  */
 public class SimpleFactory {
     static ISimpleReader createReader(int type) {
