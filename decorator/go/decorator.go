@@ -35,15 +35,15 @@ func (f *FileDataSource) Write(data string) {
 // ============================================================
 
 type DataSourceDecorator struct {
-	wrapper DataSource
+	delegate DataSource
 }
 
 func (d *DataSourceDecorator) Read() string {
-	return d.wrapper.Read()
+	return d.delegate.Read()
 }
 
 func (d *DataSourceDecorator) Write(data string) {
-	d.wrapper.Write(data)
+	d.delegate.Write(data)
 }
 
 type EncryptionDecorator struct {
@@ -55,7 +55,7 @@ func NewEncryptionDecorator(source DataSource) *EncryptionDecorator {
 }
 
 func (e *EncryptionDecorator) Read() string {
-	decoded, _ := base64.StdEncoding.DecodeString(e.wrapper.Read())
+	decoded, _ := base64.StdEncoding.DecodeString(e.delegate.Read())
 	for i := 0; i < len(decoded); i++ {
 		decoded[i] -= 1
 	}
@@ -67,7 +67,7 @@ func (e *EncryptionDecorator) Write(data string) {
 	for i := 0; i < len(result); i++ {
 		result[i] += 1
 	}
-	e.wrapper.Write(base64.StdEncoding.EncodeToString(result))
+	e.delegate.Write(base64.StdEncoding.EncodeToString(result))
 }
 
 type CompressionDecorator struct {
@@ -83,13 +83,13 @@ func NewCompressionDecorator(source DataSource) *CompressionDecorator {
 }
 
 func (c *CompressionDecorator) Read() string {
-	decompressed, _ := c.decompress(c.wrapper.Read())
+	decompressed, _ := c.decompress(c.delegate.Read())
 	return decompressed
 }
 
 func (c *CompressionDecorator) Write(data string) {
 	compressed, _ := c.compress(data)
-	c.wrapper.Write(compressed)
+	c.delegate.Write(compressed)
 }
 
 func (c *CompressionDecorator) compress(src string) (target string, err error) {
@@ -139,3 +139,5 @@ func (c *CompressionDecorator) decompress(src string) (target string, err error)
 	target = decompressed.String()
 	return
 }
+
+// 可以有更多的具体装饰实现...

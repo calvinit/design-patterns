@@ -49,20 +49,20 @@ class FileDataSource implements DataSource {
  * 抽象基础装饰，这里实现 DataSource 是为了可以给其他装饰器再次装饰（甚至可以递归装饰）
  */
 class DataSourceDecorator implements DataSource {
-    private final DataSource wrapper;
+    private final DataSource delegate;
 
     public DataSourceDecorator(DataSource source) {
-        this.wrapper = source;
+        this.delegate = source;
     }
 
     @Override
     public String read() {
-        return wrapper.read();
+        return delegate.read();
     }
 
     @Override
     public void write(String data) {
-        wrapper.write(data);
+        delegate.write(data);
     }
 }
 
