@@ -31,16 +31,16 @@ type Adapter struct {
 }
 
 func (a Adapter) f1() {
-	fmt.Println("I'm Adapter.f1()")
+	fmt.Println("I'm Adapter.f1(), I adapted Adaptee.fa().")
 	a.fa()
 }
 
 func (a Adapter) f2() {
-	fmt.Println("I'm Adapter.f2()")
+	fmt.Println("I'm Adapter.f2(), I adapted Adaptee.fb().")
 	a.fb()
 }
 
 func (a Adapter) fc() {
-	fmt.Println("I'm Adapter.fc()")
+	fmt.Println("I'm Adapter.fc(), I adapted Adaptee.fc().")
 	a.Adaptee.fc()
 }
