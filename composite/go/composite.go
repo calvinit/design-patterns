@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync/atomic"
 )
@@ -120,15 +121,10 @@ type SubNodes struct {
 }
 
 func (sub *SubNodes) IndexOf(fsn FileSystemNode) int {
-	idx := -1
 	fsnPath := strings.ToLower(fsn.GetPath())
-	for i, node := range sub.nodes {
-		if strings.ToLower(node.GetPath()) == fsnPath {
-			idx = i
-			break
-		}
-	}
-	return idx
+	return slices.IndexFunc(sub.nodes, func(node FileSystemNode) bool {
+		return strings.ToLower(node.GetPath()) == fsnPath
+	})
 }
 
 func (sub *SubNodes) Add(fsn FileSystemNode) bool {
@@ -141,6 +137,7 @@ func (sub *SubNodes) Add(fsn FileSystemNode) bool {
 
 func (sub *SubNodes) Remove(fsn FileSystemNode) bool {
 	if idx := sub.IndexOf(fsn); idx != -1 {
+		// sub.nodes = slices.Delete(sub.nodes, idx, idx+1)
 		sub.nodes = append(sub.nodes[:idx], sub.nodes[idx+1:]...)
 		return true
 	}
