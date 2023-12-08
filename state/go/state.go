@@ -91,13 +91,13 @@ func (m *MarioStateMachine1) GetCurrentState() State {
 type Event int
 
 const (
-	ATE_MUSH_ROOM Event = iota
-	GOT_CAPE
-	GOT_FIRE
-	MET_MONSTER
+	AteMushRoom Event = iota
+	GotCape
+	GotFire
+	MetMonster
 )
 
-var eventNames = [...]string{"ATE_MUSH_ROOM", "GOT_CAPE", "GOT_FIRE", "MET_MONSTER"}
+var eventNames = [...]string{"AteMushRoom", "GotCape", "GotFire", "MetMonster"}
 
 func (event Event) Value() int {
 	return int(event)
@@ -147,22 +147,22 @@ func (m *MarioStateMachine2) executeEvent(event Event) {
 
 // EatMushRoom 吃了蘑菇 🍄
 func (m *MarioStateMachine2) EatMushRoom() {
-	m.executeEvent(ATE_MUSH_ROOM)
+	m.executeEvent(AteMushRoom)
 }
 
 // ObtainCape 获得斗篷
 func (m *MarioStateMachine2) ObtainCape() {
-	m.executeEvent(GOT_CAPE)
+	m.executeEvent(GotCape)
 }
 
 // ObtainFireFlower 获得火焰 🔥
 func (m *MarioStateMachine2) ObtainFireFlower() {
-	m.executeEvent(GOT_FIRE)
+	m.executeEvent(GotFire)
 }
 
 // MeetMonster 遇到怪物
 func (m *MarioStateMachine2) MeetMonster() {
-	m.executeEvent(MET_MONSTER)
+	m.executeEvent(MetMonster)
 }
 
 func (m *MarioStateMachine2) GetScore() int {
