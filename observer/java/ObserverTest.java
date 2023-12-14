@@ -8,7 +8,7 @@ public class ObserverTest {
         subject.registerObserver(new ConcreteObserverTwo());
         subject.notifyObservers("hello world");
 
-        System.out.println("=====================================================");
+        System.out.println("==========================================");
 
         UserController userController = new UserController(new UserService());
         RegPromotionObserver promotion = new RegPromotionObserver();

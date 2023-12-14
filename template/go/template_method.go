@@ -72,6 +72,7 @@ func (SMSSender) recipientIsValid(recipient *Recipient) bool {
 	}
 	return isMatch
 }
+
 func (SMSSender) messageIsValid(message string) bool {
 	return utf8.RuneCountInString(message) <= 500
 }
@@ -100,6 +101,7 @@ func (EmailSender) recipientIsValid(recipient *Recipient) bool {
 	}
 	return isMatch
 }
+
 func (EmailSender) messageIsValid(message string) bool {
 	return len(message) <= 4*1024*1024
 }
@@ -122,6 +124,7 @@ func NewLetterSender() ISender {
 func (LetterSender) recipientIsValid(recipient *Recipient) bool {
 	return len(strings.TrimSpace(recipient.address)) > 0
 }
+
 func (LetterSender) messageIsValid(message string) bool {
 	return len(strings.TrimSpace(message)) > 0
 }
