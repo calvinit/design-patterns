@@ -23,8 +23,8 @@ type Command interface {
 // 设备命令（具体命令）
 type deviceCommand func()
 
-func (cmd *deviceCommand) Execute() {
-	(*cmd)()
+func (cmd deviceCommand) Execute() {
+	cmd()
 }
 
 type (
