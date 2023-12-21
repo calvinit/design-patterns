@@ -20,55 +20,21 @@ type Command interface {
 	Execute()
 }
 
-type TurnOnCommand struct {
-	device Device
+// 设备命令（具体命令）
+type deviceCommand func()
+
+func (cmd *deviceCommand) Execute() {
+	(*cmd)()
 }
 
-func NewTurnOnCommand(device Device) *TurnOnCommand {
-	return &TurnOnCommand{device}
-}
+type (
+	TurnOnCommand     = deviceCommand // 设备开机命令
+	TurnOffCommand    = deviceCommand // 设备关机命令
+	VolumeUpCommand   = deviceCommand // 设备音量+命令
+	VolumeDownCommand = deviceCommand // 设备音量-命令
+)
 
-func (c *TurnOnCommand) Execute() {
-	c.device.TurnOn()
-}
-
-type TurnOffCommand struct {
-	device Device
-}
-
-func NewTurnOffCommand(device Device) *TurnOffCommand {
-	return &TurnOffCommand{device}
-}
-
-func (c *TurnOffCommand) Execute() {
-	c.device.TurnOff()
-}
-
-type VolumeUpCommand struct {
-	device Device
-}
-
-func NewVolumeUpCommand(device Device) *VolumeUpCommand {
-	return &VolumeUpCommand{device}
-}
-
-func (c *VolumeUpCommand) Execute() {
-	c.device.VolumeUp()
-}
-
-type VolumeDownCommand struct {
-	device Device
-}
-
-func NewVolumeDownCommand(device Device) *VolumeDownCommand {
-	return &VolumeDownCommand{device}
-}
-
-func (c *VolumeDownCommand) Execute() {
-	c.device.VolumeDown()
-}
-
-// Device 命令接收接口
+// Device 命令接收接口，抽象「设备」
 type Device interface {
 	TurnOn()     // 开机
 	TurnOff()    // 关机
@@ -76,6 +42,7 @@ type Device interface {
 	VolumeDown() // 音量 -
 }
 
+// TV 具体「设备」：电视机
 type TV struct {
 	isRunning bool
 	volume    uint8

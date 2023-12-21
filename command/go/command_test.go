@@ -5,22 +5,22 @@ import "testing"
 func TestCommand(t *testing.T) {
 	tv := &TV{}
 
-	turnOnCommand := NewTurnOnCommand(tv)
+	turnOnCommand := TurnOnCommand(tv.TurnOn)
 	turnOnButton := NewButton(turnOnCommand)
 	turnOnButton.Press()
 
-	volumeUpCommand := NewVolumeUpCommand(tv)
+	volumeUpCommand := VolumeUpCommand(tv.VolumeUp)
 	volumeUpButton := NewButton(volumeUpCommand)
 	volumeUpButton.Press()
 	volumeUpButton.Press()
 	volumeUpButton.Press()
 
-	volumeDownCommand := NewVolumeDownCommand(tv)
+	volumeDownCommand := VolumeDownCommand(tv.VolumeDown)
 	volumeDownButton := NewButton(volumeDownCommand)
 	volumeDownButton.Press()
 	volumeDownButton.Press()
 
-	turnOffCommand := NewTurnOffCommand(tv)
+	turnOffCommand := TurnOffCommand(tv.TurnOff)
 	turnOffButton := NewButton(turnOffCommand)
 	turnOffButton.Press()
 }
