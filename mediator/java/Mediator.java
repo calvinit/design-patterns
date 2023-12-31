@@ -71,7 +71,8 @@ class FreightTrain implements Train {
 }
 
 public interface Mediator {
-    boolean canArrive(@SuppressWarnings("ClassEscapesDefinedScope") Train train);
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "ClassEscapesDefinedScope"})
+    boolean canArrive(Train train);
 
     void notifyAboutDeparture();
 }
